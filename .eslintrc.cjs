@@ -29,6 +29,8 @@ module.exports = {
     // react props 支持解构
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'react/jsx-props-no-spreading': 0,
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'react/jsx-uses-react': 'off',
     // 支持 console
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'no-console': 0,
