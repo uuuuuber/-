@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 module.exports = {
   extends: [
     'airbnb',
@@ -55,8 +56,6 @@ module.exports = {
     // 允许赋值作为返回结果
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'no-return-assign': 0,
-    // 允许非驼峰命名
-    camelcase: 0,
     // 允许方法中不存在this
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'class-methods-use-this': 0,
@@ -173,6 +172,11 @@ module.exports = {
     /** 未使用的变量作为错误处理 */
     // eslint-disable-next-line @typescript-eslint/naming-convention
     '@typescript-eslint/no-unused-vars': 2,
+
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'quote-props': [2, 'as-needed'],
+    // eslint-disable-next-line prettier/prettier
+    camelcase: [2, { allow: ['@'] }],
   },
   env: {
     browser: true,

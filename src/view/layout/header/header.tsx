@@ -1,17 +1,19 @@
 import React from 'react';
 import { Layout, Button } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined } from '@ant-design/icons';
+import { observer } from 'mobx-react-lite';
+import useStore from '../../../store/index';
 
 const { Header } = Layout;
 function HeaderView() {
-  console.log('header');
+  const { collapsed, setCollapsed } = useStore().globalStore;
 
   return (
     <Header style={{ padding: 0, background: 'skyblue' }}>
       <Button
         type="text"
         icon={<MenuFoldOutlined />}
-        onClick={() => {}}
+        onClick={() => setCollapsed(!collapsed)}
         style={{
           fontSize: '16px',
           width: 64,
@@ -22,4 +24,4 @@ function HeaderView() {
   );
 }
 
-export default HeaderView;
+export default observer(HeaderView);

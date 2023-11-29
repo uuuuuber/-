@@ -19,10 +19,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["*"]
-    }
+    // "baseUrl": "./src",
+    // "paths": {
+    //   "@/*": ["*"]
+    // }
   },
   "include": ["src/**/*", "vite.config.ts"],
   "exclude": [".eslintrc.cjs"],
