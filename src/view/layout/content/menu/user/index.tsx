@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Login() {
+function User() {
   return <div>用户</div>;
 }
 
-export default Login;
+export default User;

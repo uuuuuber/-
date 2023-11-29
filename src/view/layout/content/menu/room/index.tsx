@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Login() {
+function Room() {
   return <div>直播间</div>;
 }
 
-export default Login;
+export default Room;

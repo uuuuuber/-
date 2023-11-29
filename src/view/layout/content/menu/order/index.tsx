@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Login() {
+function Order() {
   return <div>订单</div>;
 }
 
-export default Login;
+export default Order;

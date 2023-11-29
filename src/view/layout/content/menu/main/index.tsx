@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Login() {
+function Main() {
   return <div>主面板</div>;
 }
 
-export default Login;
+export default Main;

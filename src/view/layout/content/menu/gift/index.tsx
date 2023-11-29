@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Login() {
+function Gift() {
   return <div>礼物</div>;
 }
 
-export default Login;
+export default Gift;
