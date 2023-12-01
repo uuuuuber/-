@@ -18,6 +18,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'react'],
   rules: {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    '@typescript-eslint/no-explicit-any': 'warn',
     // 允许在未声明前使用
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'no-use-before-define': 0,

@@ -1,5 +1,6 @@
-import React from 'react';
-import { Layout } from 'antd';
+import React, { Suspense } from 'react';
+import { Layout, Spin } from 'antd';
+import { Outlet } from 'react-router-dom';
 
 const { Content } = Layout;
 
@@ -15,7 +16,22 @@ function ContentView() {
         background: '#fff',
       }}
     >
-      Content
+      <Suspense
+        fallback={
+          <Spin
+            size="large"
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+        }
+      >
+        <Outlet />
+      </Suspense>
     </Content>
   );
 }
