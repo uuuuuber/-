@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@ant-design/pro-components": "^2.6.43",
     "@types/eslint": "^8.44.7",
     "antd": "^5.11.5",
     "eslint-config-airbnb": "^19.0.4",

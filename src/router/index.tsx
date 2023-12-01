@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import Main from '../view/layout/content/menu/main';
 import Login from '../view/home/login';
 import Registration from '../view/home/registration';
@@ -16,9 +16,9 @@ interface IProtectedRouteProps {
   children: ReactNode;
 }
 function ProtectedRoute({ children }: IProtectedRouteProps) {
-  // if (!currentUser) {
-  //   return <Navigate to="/login" />;
-  // }
+  if (true) {
+    return <Navigate to="/login" />;
+  }
   return children;
 }
 
