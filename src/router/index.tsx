@@ -16,9 +16,9 @@ interface IProtectedRouteProps {
   children: ReactNode;
 }
 function ProtectedRoute({ children }: IProtectedRouteProps) {
-  if (true) {
-    return <Navigate to="/login" />;
-  }
+  // if (true) {
+  //   return <Navigate to="/login" />;
+  // }
   return children;
 }
 
