@@ -4,12 +4,9 @@ import {
   LoginForm,
   ProConfigProvider,
   ProFormCaptcha,
-  ProFormCheckbox,
   ProFormText,
-  setAlpha,
 } from '@ant-design/pro-components';
 import { Button, Tabs, message, theme } from 'antd';
-import type { CSSProperties } from 'react';
 import React, { useState } from 'react';
 import './index.less';
 import { useNavigate } from 'react-router';
