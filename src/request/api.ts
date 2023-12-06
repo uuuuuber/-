@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import axios from 'axios';
 
 const instance = axios.create({
@@ -31,7 +32,8 @@ instance.interceptors.response.use(
   },
   error => {
     // 响应错误时做点什么
-    return Promise.reject(error);
+    const { msg, data } = error.response.data;
+    message.error(`${msg},${data}`);
   }
 );
 
