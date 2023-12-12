@@ -7,5 +7,7 @@ export interface IAdminDataType {
 }
 export interface IAdminStore {
   adminList: IAdminDataType[];
+  currentAdmin: IAdminDataType;
+  setCurrentAdmin(v: IAdminDataType): void;
   setAdminDataList(v: IAdminDataType[]): void;
 }

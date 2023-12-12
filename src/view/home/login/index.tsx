@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import './index.less';
 import { useNavigate } from 'react-router';
 import instance from '../../../request/api';
+import useStore from '../../../store';
 
 type LoginType = 'phone' | 'account';
 
@@ -18,6 +19,7 @@ function Login() {
   const { token } = theme.useToken();
   const navigate = useNavigate();
   const [loginType, setLoginType] = useState<LoginType>('phone');
+  const { setCurrentAdmin } = useStore().adminStore;
 
   const loginAction = async (values: any) => {
     if (loginType === 'account') {
@@ -28,8 +30,11 @@ function Login() {
           const { status, data } = res;
           if (status === 200 && data.result) {
             localStorage.setItem('token', data.result.token);
+            const current = data.result.manager;
+            delete current.password;
+            setCurrentAdmin(current);
             navigate('/');
-            message.success('登陆成功');
+            message.success('登录成功');
           }
         });
     }
