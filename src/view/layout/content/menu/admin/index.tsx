@@ -54,9 +54,11 @@ function Admin() {
     await instance
       .get(`/admin/manager?page=${page}&limit=${limit}`)
       .then(res => {
-        const { rows, count } = res.data.result;
-        setCount(count);
-        setAdminDataList(rows);
+        if (res && res.status === 200) {
+          const { rows, count } = res.data.result;
+          setCount(count);
+          setAdminDataList(rows);
+        }
       });
   };
 

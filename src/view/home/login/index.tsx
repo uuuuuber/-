@@ -10,6 +10,7 @@ import { Button, Tabs, message, theme } from 'antd';
 import React, { useState } from 'react';
 import './index.less';
 import { useNavigate } from 'react-router';
+import instance from '../../../request/api';
 
 type LoginType = 'phone' | 'account';
 
@@ -17,6 +18,22 @@ function Login() {
   const { token } = theme.useToken();
   const navigate = useNavigate();
   const [loginType, setLoginType] = useState<LoginType>('phone');
+
+  const loginAction = async (values: any) => {
+    if (loginType === 'account') {
+      const { password, username } = values;
+      await instance
+        .post('/admin/loginevent', { username, password })
+        .then(res => {
+          const { status, data } = res;
+          if (status === 200 && data.result) {
+            localStorage.setItem('token', data.result.token);
+            navigate('/');
+            message.success('登陆成功');
+          }
+        });
+    }
+  };
 
   return (
     <ProConfigProvider hashed={false}>
@@ -30,6 +47,9 @@ function Login() {
           logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
           title="LIVE"
           subTitle="陶瓷直播间后台管理系统"
+          onFinish={async values => {
+            loginAction(values);
+          }}
         >
           <Tabs
             centered
@@ -147,7 +167,7 @@ function Login() {
                   },
                 ]}
                 onGetCaptcha={async () => {
-                  message.success('获取验证码成功！验证码为：1234');
+                  message.success('验证码已发送到手机');
                 }}
               />
             </>
