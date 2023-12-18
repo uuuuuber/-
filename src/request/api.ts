@@ -75,6 +75,9 @@ instance.interceptors.response.use(
     if (error.name === 'CanceledError') {
       return;
     }
+    if (`${error.code}` === 'ERR_NETWORK') {
+      message.error(error.message);
+    }
     if (error.response && `${error.response.status}` === '401') {
       const { data } = error.response.data;
       message.error(`${data}`);
