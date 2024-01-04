@@ -1,24 +1,36 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';
 import {
-  LoginForm,
   ProConfigProvider,
-  ProFormCaptcha,
-  ProFormCheckbox,
+  ProForm,
   ProFormText,
-  setAlpha,
 } from '@ant-design/pro-components';
-import { Button, Form, Tabs, message, theme } from 'antd';
-import type { CSSProperties } from 'react';
-import React, { useState } from 'react';
+import React from 'react';
+import { message, theme } from 'antd';
 import './index.less';
 import { useNavigate } from 'react-router';
-
-type LoginType = 'phone' | 'account';
+import instance from '../../../request/api';
 
 function Registration() {
   const { token } = theme.useToken();
   const navigate = useNavigate();
+
+  const registrationAdmin = async (values: any) => {
+    const { password, username, mobile } = values;
+    console.log(values);
+
+    await instance
+      .post('/admin/manager/save', { username, password, mobile })
+      .then(res => {
+        if (res) {
+          const { status, data } = res;
+          if (status === 200 && data.result) {
+            navigate('/');
+            message.success('注册成功');
+          }
+        }
+      });
+  };
 
   return (
     <ProConfigProvider hashed={false}>
@@ -28,7 +40,11 @@ function Registration() {
           backgroundColor: token.colorBgContainer,
         }}
       >
-        <Form>
+        <ProForm
+          onFinish={async values => {
+            registrationAdmin(values);
+          }}
+        >
           <h2>新用户注册</h2>
           <ProFormText
             name="username"
@@ -118,8 +134,7 @@ function Registration() {
               已有账号去登陆
             </a>
           </div>
-          <Button type="primary">注册</Button>
-        </Form>
+        </ProForm>
       </div>
     </ProConfigProvider>
   );

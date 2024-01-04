@@ -14,7 +14,7 @@ function Admin() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const { adminList, setAdminDataList } = useStore().adminStore;
+  const { currentAdmin, adminList, setAdminDataList } = useStore().adminStore;
 
   const columns: ColumnsType<IAdminDataType> = [
     {
@@ -54,6 +54,8 @@ function Admin() {
     await instance
       .get(`/admin/manager?page=${page}&limit=${limit}`)
       .then(res => {
+        console.log(res);
+
         if (res && res.status === 200) {
           const { rows, count } = res.data.result;
           setCount(count);
@@ -90,6 +92,10 @@ function Admin() {
   };
 
   const delAdmin = async (id: number) => {
+    if (id === currentAdmin.id) {
+      message.warning('不能删除自己');
+      return;
+    }
     const { status, data } = await instance.get(`/admin/manager/delete/${id}`);
     if (status === 200) {
       message.success(data.msg);
@@ -99,7 +105,6 @@ function Admin() {
 
   return (
     <div className="admin">
-      <h2>直播间服务器情况</h2>
       <div className="adminTable">
         <Button
           type="primary"
@@ -116,6 +121,7 @@ function Admin() {
       </div>
       <Modal
         title="新增管理员"
+        className="adminModal"
         open={isModalOpen}
         onOk={setAdminList}
         cancelText="取消"
@@ -132,7 +138,7 @@ function Admin() {
 
         <div className="row">
           <span className="lable">
-            账号 <span style={{ color: '#ff4d4f' }}>*</span>
+            密码 <span style={{ color: '#ff4d4f' }}>*</span>
           </span>
           <Input value={password} onChange={e => setPassword(e.target.value)} />
           {!password && <span className="tip">密码不能为空!</span>}

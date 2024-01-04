@@ -20,11 +20,6 @@ export default class AdminStore implements IAdminStore {
     stopPersisting(this); // 停止先前的持久化
     // 持久化
     makePersistable(this, {
-      name: 'adminData',
-      properties: ['adminList'],
-      storage: window.localStorage,
-    });
-    makePersistable(this, {
       name: 'currentAdmin',
       properties: ['currentAdmin'],
       storage: window.localStorage, // 你的数据需要用那种方式存储，常见的就是localStorage

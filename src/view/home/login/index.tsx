@@ -27,14 +27,16 @@ function Login() {
       await instance
         .post('/admin/loginevent', { username, password })
         .then(res => {
-          const { status, data } = res;
-          if (status === 200 && data.result) {
-            localStorage.setItem('token', data.result.token);
-            const current = data.result.manager;
-            delete current.password;
-            setCurrentAdmin(current);
-            navigate('/');
-            message.success('登录成功');
+          if (res) {
+            const { status, data } = res;
+            if (status === 200 && data.result) {
+              localStorage.setItem('token', data.result.token);
+              const current = data.result.manager;
+              delete current.password;
+              setCurrentAdmin(current);
+              navigate('/');
+              message.success('登录成功');
+            }
           }
         });
     }

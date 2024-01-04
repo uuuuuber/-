@@ -88,6 +88,9 @@ instance.interceptors.response.use(
         window.location.reload();
       }, 1500);
     }
+    // if (error.response && `${error.response.status}` === '400') {
+    //   message.error(error.response.data.data);
+    // }
     console.error(error);
   }
 );
