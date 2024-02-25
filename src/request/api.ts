@@ -1,8 +1,8 @@
 import { message } from 'antd';
 import axios, { InternalAxiosRequestConfig } from 'axios';
-import history from '../router/history';
 
 const instance = axios.create({
+  // baseURL: 'http://houtai.5xtuding.plus',
   baseURL: 'http://127.0.0.1:7001',
   timeout: 5000, // 超时时间，单位为毫秒
   withCredentials: true,
@@ -56,6 +56,14 @@ instance.interceptors.request.use(
     // 把当前请求信息添加到pendingRequest对象中
     addPendingRequest(config);
 
+    const token = localStorage.getItem('token');
+
+    // 如果 Token 存在，则将其设置到请求头中
+    if (token) {
+      // eslint-disable-next-line no-param-reassign
+      config.headers.Authorization = `${token}`;
+    }
+
     return config;
   },
   error => {
@@ -83,14 +91,18 @@ instance.interceptors.response.use(
       message.error(`${data}`);
       localStorage.removeItem('token');
       localStorage.removeItem('adminData');
-      history.push('/login', { from: history.location.pathname });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+      // history.push('/login', { from: history.location.pathname });
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1500);
     }
-    // if (error.response && `${error.response.status}` === '400') {
-    //   message.error(error.response.data.data);
-    // }
+    if (
+      error.response &&
+      `${error.response.status}` === '400' &&
+      `${error.response.data.data}` === '该管理员已存在'
+    ) {
+      message.error(error.response.data.data);
+    }
     console.error(error);
   }
 );

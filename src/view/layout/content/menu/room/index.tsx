@@ -243,7 +243,12 @@ function Room(): React.ReactElement {
         <Table
           dataSource={currentData}
           columns={columns}
-          pagination={{ total: count, pageSize: 7, onChange: pagingRequest }}
+          pagination={{
+            simple: true,
+            total: count,
+            pageSize: 7,
+            onChange: pagingRequest,
+          }}
         />
       ),
     },

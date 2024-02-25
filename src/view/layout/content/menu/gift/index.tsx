@@ -155,7 +155,12 @@ function Gift(): React.ReactElement {
         <Table
           dataSource={giftList}
           columns={columns}
-          pagination={{ total: count, pageSize: 5, onChange: pagingRequest }}
+          pagination={{
+            simple: true,
+            total: count,
+            pageSize: 5,
+            onChange: pagingRequest,
+          }}
         />
       ),
     },

@@ -140,7 +140,13 @@ function Order(): React.ReactElement {
         <Table
           dataSource={orderList}
           columns={columns}
-          pagination={{ total: count, pageSize: 5, onChange: pagingRequest }}
+          pagination={{
+            simple: true,
+            total: count,
+            pageSize: 5,
+            showSizeChanger: false,
+            onChange: pagingRequest,
+          }}
         />
       ),
     },

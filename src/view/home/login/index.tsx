@@ -30,6 +30,8 @@ function Login() {
           if (res) {
             const { status, data } = res;
             if (status === 200 && data.result) {
+              console.log(data.result.token);
+
               localStorage.setItem('token', data.result.token);
               const current = data.result.manager;
               delete current.password;
@@ -38,6 +40,9 @@ function Login() {
               message.success('登录成功');
             }
           }
+        })
+        .catch(e => {
+          console.log(e);
         });
     }
   };

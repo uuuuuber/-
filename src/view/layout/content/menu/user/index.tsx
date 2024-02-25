@@ -214,7 +214,12 @@ function User(): React.ReactElement {
         <Table
           dataSource={userList}
           columns={columns}
-          pagination={{ total: count, pageSize: 10, onChange: pagingRequest }}
+          pagination={{
+            simple: true,
+            total: count,
+            pageSize: 10,
+            onChange: pagingRequest,
+          }}
         />
       ),
     },
