@@ -16,6 +16,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import './index.less';
 import { RcFile } from 'antd/es/upload';
 import instance from '../../../../../request/api';
+import { imgUrl } from '../../../../../request/config';
 
 interface IColumnsType {
   id: React.Key;
@@ -86,13 +87,14 @@ function Gift(): React.ReactElement {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <img
-              src={record.image}
-              alt=""
+              src={imgUrl + record.image}
+              alt={record.name}
               style={{
                 width: '50px',
                 height: '50px',
                 borderRadius: '50%',
                 marginRight: '10px',
+                border: '1px solid #eee',
               }}
             />
             <div>{record.name}</div>
@@ -273,7 +275,7 @@ function Gift(): React.ReactElement {
         {isEdit ? (
           <div>
             <div className="row">
-              <h3>礼物名称</h3>
+              <h3>礼物名称qq</h3>
               <Input
                 value={currentRow?.name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -300,7 +302,7 @@ function Gift(): React.ReactElement {
               >
                 {currentRow?.image ? (
                   <img
-                    src={currentRow?.image}
+                    src={`http://houtai.5xtuding.plus${currentRow?.image}`}
                     alt="avatar"
                     style={{
                       width: '100%',

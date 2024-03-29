@@ -92,17 +92,14 @@ instance.interceptors.response.use(
       localStorage.removeItem('token');
       localStorage.removeItem('adminData');
       // history.push('/login', { from: history.location.pathname });
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 1500);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     }
-    if (
-      error.response &&
-      `${error.response.status}` === '400' &&
-      `${error.response.data.data}` === '该管理员已存在'
-    ) {
+    if (error.response && error.response.data.status === 400) {
       message.error(error.response.data.data);
     }
+
     console.error(error);
   }
 );

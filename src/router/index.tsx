@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Navigate, createBrowserRouter } from 'react-router-dom';
-import Main from '../view/layout/content/menu/main';
+// import Main from '../view/layout/content/menu/main';
 import Login from '../view/home/login';
 import Registration from '../view/home/registration';
 import NotFound from '../view/notFound';
@@ -11,6 +11,15 @@ const Room = React.lazy(() => import('../view/layout/content/menu/room'));
 const Gift = React.lazy(() => import('../view/layout/content/menu/gift'));
 const Order = React.lazy(() => import('../view/layout/content/menu/order'));
 const Admin = React.lazy(() => import('../view/layout/content/menu/admin'));
+const GoodOrder = React.lazy(
+  () => import('../view/layout/content/menu/goodorder')
+);
+const UserGood = React.lazy(
+  () => import('../view/layout/content/menu/usergood')
+);
+const Apply = React.lazy(
+  () => import('../view/layout/content/menu/apply/index')
+);
 
 interface IProtectedRouteProps {
   children: ReactNode;
@@ -34,12 +43,12 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Main />,
+        element: <User />,
       },
-      {
-        path: '/main',
-        element: <Main />,
-      },
+      // {
+      //   path: '/main',
+      //   element: <Main />,
+      // },
       {
         path: '/user',
         element: <User />,
@@ -55,6 +64,18 @@ export const routes = createBrowserRouter([
       {
         path: '/order',
         element: <Order />,
+      },
+      {
+        path: '/goodorder',
+        element: <GoodOrder />,
+      },
+      {
+        path: '/apply',
+        element: <Apply />,
+      },
+      {
+        path: '/usergood',
+        element: <UserGood />,
       },
       {
         path: '/admin',

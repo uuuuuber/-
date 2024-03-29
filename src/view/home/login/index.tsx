@@ -13,12 +13,13 @@ import { useNavigate } from 'react-router';
 import instance from '../../../request/api';
 import useStore from '../../../store';
 
-type LoginType = 'phone' | 'account';
+// type LoginType = 'phone' | 'account';
+type LoginType = 'account';
 
 function Login() {
   const { token } = theme.useToken();
   const navigate = useNavigate();
-  const [loginType, setLoginType] = useState<LoginType>('phone');
+  const [loginType, setLoginType] = useState<LoginType>('account');
   const { setCurrentAdmin } = useStore().adminStore;
 
   const loginAction = async (values: any) => {
@@ -69,7 +70,7 @@ function Login() {
             onChange={activeKey => setLoginType(activeKey as LoginType)}
           >
             <Tabs.TabPane key="account" tab="账号密码登录" />
-            <Tabs.TabPane key="phone" tab="手机号登录" />
+            {/* <Tabs.TabPane key="phone" tab="手机号登录" /> */}
           </Tabs>
           {loginType === 'account' && (
             <>
@@ -136,7 +137,7 @@ function Login() {
               />
             </>
           )}
-          {loginType === 'phone' && (
+          {/* {loginType === 'phone' && (
             <>
               <ProFormText
                 fieldProps={{
@@ -183,7 +184,7 @@ function Login() {
                 }}
               />
             </>
-          )}
+          )} */}
           <div
             style={{
               marginBlockEnd: 24,

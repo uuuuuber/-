@@ -10,6 +10,8 @@ import {
 } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import instance from '../../../../../request/api';
+import { imgUrl } from '../../../../../request/config';
+import morenImg from '../../../../../assets/yh.png';
 
 interface IColumnsType extends IServe {
   isedit: boolean;
@@ -96,7 +98,7 @@ function User(): React.ReactElement {
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <img
-              src=""
+              src={record.avatar ? imgUrl + record.avatar : morenImg}
               alt=""
               style={{
                 background: 'bule',

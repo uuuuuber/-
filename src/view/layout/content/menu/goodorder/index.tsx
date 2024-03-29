@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React, { useEffect, useState } from 'react';
 import { Button, Popconfirm, Table, Tabs, TabsProps, message } from 'antd';
 import { ColumnsType } from 'antd/es/table';
@@ -5,54 +6,62 @@ import instance from '../../../../../request/api';
 import { imgUrl } from '../../../../../request/config';
 
 interface IUSERINOF {
-  id: number; // 用户id
   username: string; // 用户名
   avatar: string; // 用户头像
+}
+interface IGOOD {
+  goodtitle: string; // 商品描述
 }
 
 interface IColumnsType {
   id: number; // ID
-  no: string; // 订单号
-  user: IUSERINOF; // 关联用户
   price: number; // 价格
   status: string; // 支付状态
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  goods_num: number; // 购买商品数量
+  goodcover: string; // 商品入口图片
+  total_price: number; // 总价
+  user: IUSERINOF; // 用户数据
+  good: IGOOD; // 商品数据
   created_time: string; // 创建时间
 }
 
-function Order(): React.ReactElement {
+function GoodOrder(): React.ReactElement {
   const [count, setCount] = useState<number>(1); // 数据总数
   const [currentPage, setCurrentPage] = useState<number>(1); // 当前页
-  const [orderList, setOrderList] = useState<IColumnsType[]>([]);
+  const [goodOrderList, setGoodOrderList] = useState<IColumnsType[]>([]);
 
-  const getOrderList = async (page: number = 1, limit: number = 5) => {
-    await instance.get(`/admin/order?page=${page}&limit=${limit}`).then(res => {
-      if (res && res.status === 200) {
-        console.log(res);
+  const getGoodOrderList = async (page: number = 1, limit: number = 5) => {
+    await instance
+      .get(`/admin/order/getGoodorderList?page=${page}&limit=${limit}`)
+      .then(res => {
+        if (res && res.status === 200) {
+          console.log(res);
 
-        setCount(res.data.result.count);
-        setOrderList(res.data.result.rows);
-      } else {
-        setOrderList([]);
-      }
-    });
+          setCount(res.data.result.count);
+          setGoodOrderList(res.data.result.rows);
+        } else {
+          setGoodOrderList([]);
+        }
+      });
   };
 
   useEffect(() => {
-    getOrderList();
+    getGoodOrderList();
   }, []);
 
-  const delOrder = async (id: number): Promise<void> => {
-    const { status, data } = await instance.get(`/admin/order/delete/${id}`);
+  const delGoodOrderList = async (id: number): Promise<void> => {
+    const { status, data } = await instance.get(
+      `/admin/order/delGoodorder/${id}`
+    );
     if (status === 200) {
       message.success(data.msg);
-      getOrderList();
+      getGoodOrderList();
     }
   };
 
   const pagingRequest = (page: number) => {
     setCurrentPage(page);
-    getOrderList(page);
+    getGoodOrderList(page);
   };
 
   const columns: ColumnsType<IColumnsType> = [
@@ -63,13 +72,7 @@ function Order(): React.ReactElement {
       render: (_, record) => <div>{record.id}</div>,
     },
     {
-      title: '订单号',
-      dataIndex: 'orderID',
-      key: 'orderID',
-      render: (_, record) => <div>{record.no}</div>,
-    },
-    {
-      title: '用户',
+      title: '购买者',
       dataIndex: 'user',
       key: 'user',
       render: (_, record) => (
@@ -90,10 +93,43 @@ function Order(): React.ReactElement {
       ),
     },
     {
-      title: '价格',
+      title: '购买商品',
+      dataIndex: 'good',
+      key: 'good',
+      render: (_, record) => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img
+            src={record.goodcover}
+            alt=""
+            style={{
+              background: 'bule',
+              width: '50px',
+              height: '50px',
+              borderRadius: '50%',
+              marginRight: '20px',
+            }}
+          />
+          <span>{record.good?.goodtitle}</span>
+        </div>
+      ),
+    },
+    {
+      title: '单价',
       dataIndex: 'price',
       key: 'price',
       render: (_, record) => <div>{record.price}</div>,
+    },
+    {
+      title: '购买数量',
+      dataIndex: 'goods_num',
+      key: 'goods_num',
+      render: (_, record) => <div>{record.goods_num}</div>,
+    },
+    {
+      title: '总价',
+      dataIndex: 'total_price',
+      key: 'total_price',
+      render: (_, record) => <div>{record.total_price}</div>,
     },
     {
       title: '状态',
@@ -122,7 +158,7 @@ function Order(): React.ReactElement {
             <Popconfirm
               title="确定删除吗？"
               onConfirm={() => {
-                delOrder(record.id);
+                delGoodOrderList(record.id);
               }}
             >
               <span style={{ cursor: 'pointer', color: '#ff4d4f' }}>删除</span>
@@ -139,7 +175,7 @@ function Order(): React.ReactElement {
       label: '全部',
       children: (
         <Table
-          dataSource={orderList}
+          dataSource={goodOrderList}
           columns={columns}
           pagination={{
             simple: true,
@@ -156,4 +192,4 @@ function Order(): React.ReactElement {
   return <Tabs defaultActiveKey="1" items={items} />;
 }
 
-export default Order;
+export default GoodOrder;
